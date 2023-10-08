@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     resources :feedbacks, only: [:create]
     resources :recordings, only: [:create, :index]
   end
+
+  ### User Index
   
   get "up" => "rails/health#show", as: :rails_health_check
 

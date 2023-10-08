@@ -1,5 +1,8 @@
 class CallSessionsController < ApplicationController
 
+  before_action :set_call_session, only: [:show, :update, :destroy]
+  before_action :authorize_call_session, only: [:update, :destroy]
+
   # index: List all call sessions for a user
   def index 
     @call_sessions = current_user.call_sessions
@@ -8,7 +11,6 @@ class CallSessionsController < ApplicationController
 
   # show: Display details of a specific call session
   def show
-    @call_session = CallSession.find(params[:id])
     render json: @call_session
   end
 
@@ -25,8 +27,6 @@ class CallSessionsController < ApplicationController
 
   # update: Modify an existing call session, e.g., extend call time 
   def update
-    @call_session = CallSession.find(params[:id])
-    
     if @call_session.update(call_session_params)
       render json: @call_session
     else
@@ -36,11 +36,17 @@ class CallSessionsController < ApplicationController
 
   # destroy: Terminate a call session.
   def destroy
-    @call_session = CallSession.find(params[:id])
     @call_session.destroy
     head :no_content
   end
-  
-  
-  
+
+  private
+
+  def set_call_session
+    @call_session = CallSession.find(params[:id])
+  end
+
+  def authorize_call_session
+    authorize_resource_owner!(@call_session)
+  end
 end
