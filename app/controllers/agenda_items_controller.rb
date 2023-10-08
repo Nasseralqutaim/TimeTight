@@ -38,6 +38,8 @@ class AgendaItemsController < ApplicationController
     @agenda_item.destroy
     head :no_content
   end
+
+  
   
 
   
