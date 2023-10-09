@@ -3,13 +3,22 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.new(user_params)
-
-    if @user.save
-      render json: @user, status: :created
+    user = User.new(
+      name: params[:name],
+      email: params[:email],
+      password: params[:password],
+      password_confirmation: params[:password_confirmation]
+    )
+    if user.save
+      render json: { message: "User created successfully" }, status: :created
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: { errors: user.errors.full_messages }, status: :bad_request
     end
+  end
+  ## GET /users (Temp Test)
+  def index
+    @users = User.all
+    render json: @users
   end
 
   # GET /users/:id
@@ -39,8 +48,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    # Permit the parameters that you require for user creation and updating.
-    # Replace :attribute_1, :attribute_2, etc. with the actual attributes of your User model.
-    params.require(:user).permit(:attribute_1, :attribute_2, ...)
+    params.require(:user).permit(:name, :email, :password_digest)
   end
 end
+

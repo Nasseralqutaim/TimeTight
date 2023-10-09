@@ -18,7 +18,7 @@ gem 'rack-cors'
 ## Token-based Auth gem: 
 # gem 'devise_token_auth', '1.2.2'
 
-
+gem 'jwt'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
