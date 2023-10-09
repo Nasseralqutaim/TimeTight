@@ -24,7 +24,8 @@ class ApplicationController < ActionController::API
   end
 
   def authorize_resource_owner!(resource)
-    unless current_user && current_user == resource.user
+    owner = resource.respond_to?(:user) ? resource.user : resource.initiator
+    unless current_user && current_user == owner
       render json: { error: 'Not authorized' }, status: :forbidden
     end
   end

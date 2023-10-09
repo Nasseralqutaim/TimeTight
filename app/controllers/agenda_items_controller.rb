@@ -1,7 +1,7 @@
 class AgendaItemsController < ApplicationController
   before_action :set_agenda_item, only: [:update, :destroy]
   before_action :set_call_session, only: [:index, :create]
-  before_action :authorize_agenda_item, only: [:update, :destroy]
+  before_action :authorize_call_session, only: [:update, :destroy]
 
   # index: Display all agenda items for a specific call session
   def index
@@ -45,7 +45,7 @@ class AgendaItemsController < ApplicationController
     @call_session = CallSession.find(params[:call_session_id])
   end
 
-  def authorize_agenda_item
-    authorize_resource_owner!(@agenda_item.call_session)
+  def authorize_call_session
+    authorize_resource_owner!(@call_session)
   end
 end
