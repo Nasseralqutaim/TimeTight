@@ -6,8 +6,7 @@ Rails.application.routes.draw do
     resources :recordings, only: [:create, :index]
   end
 
-  ### User Index
-  post "/users" => "users#create"
+  
   post "/sessions" => "sessions#create"
   
   get "up" => "rails/health#show", as: :rails_health_check
