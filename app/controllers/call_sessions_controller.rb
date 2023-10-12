@@ -1,5 +1,4 @@
 class CallSessionsController < ApplicationController
-
   before_action :set_call_session, only: [:show, :update, :destroy]
   before_action :authorize_call_session, only: [:update, :destroy]
 
