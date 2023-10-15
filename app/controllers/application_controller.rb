@@ -20,7 +20,7 @@ class ApplicationController < ActionController::API
         end
       end
     end
-    nil # Explicitly return nil if no user is found or if there's an error
+    nil 
   end
 
   def authorize_resource_owner!(resource)

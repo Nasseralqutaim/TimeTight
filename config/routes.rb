@@ -11,12 +11,6 @@ Rails.application.routes.draw do
   resources :feedbacks, only: [:create, :show, :update, :destroy]
   resources :recordings, only: [:create, :index]
   end
-  
-
-  
   post "/sessions" => "sessions#create"
-  
   get "up" => "rails/health#show", as: :rails_health_check
-
-
 end
