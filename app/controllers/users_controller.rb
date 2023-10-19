@@ -18,7 +18,8 @@ class UsersController < ApplicationController
 
   # GET /users/:id
   def show
-    render json: @user
+    render json: @call_sessions.as_json(only: [:id, :initiator_id, :recipient_id, :start_time, :end_time], include: [initiator: { only: :username }, recipient: { only: :username }])
+
   end
 
   # PATCH/PUT /users/:id

@@ -3,15 +3,26 @@ class CallSessionsController < ApplicationController
   before_action :authorize_call_session, only: [:update, :destroy]
 
   # index: List all call sessions for a user
-  def index 
-    @call_sessions = current_user.call_sessions
-    render json: @call_sessions
-  end 
+  def index
+    @call_sessions = CallSession.where("initiator_id = ? OR recipient_id = ?", current_user.id, current_user.id)
+    # Convert data to JSON
+    result = @call_sessions.as_json(include: {
+      initiator: { only: [:name, :email] }, # changed from username to name based on your console output
+      recipient: { only: [:name, :email] }  # changed from username to name based on your console output
+    })
+    Rails.logger.info(result.inspect)
+    render json: result
+  end
+  
 
   # show: Display details of a specific call session
   def show
-    render json: @call_session
+    render json: @call_session.as_json(include: {
+      initiator: { only: [:username] },
+      recipient: { only: [:username] }
+    })
   end
+  
 
   # create: Initiate a new call session
   def create
